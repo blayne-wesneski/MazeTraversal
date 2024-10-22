@@ -4,7 +4,7 @@ public class generateMaze {
     char[][] maze = new char[10][10];
 
     /*
-     * Main method for testing only, will be moved to a tester class later.
+     * Main method for testing only, will be moved to a driver class later.
      */
     public static void main(String[] args) {
         generateMaze gm = new generateMaze();
@@ -13,7 +13,7 @@ public class generateMaze {
     }
 
     /*
-     * This is debug code, will be moved into a tester class later.
+     * This is debug code, will be moved into a driver class later.
      */
     public static void printArray(char[][] array) {
         for (int i = 0; i < array.length; i++) {
@@ -29,9 +29,9 @@ public class generateMaze {
         /*
          * Visualising this hurts my brain.
          * I have it working, and fingers crossed there isn't a bug.
-         */
-
-        /*
+         *
+         * 
+         * 
          * Wall = #
          * Obstacle = X
          */
