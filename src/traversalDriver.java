@@ -1,8 +1,8 @@
 public class traversalDriver {
     public static void main(String[] args) {
         generateMaze gm = new generateMaze();
-        gm.createMaze();
-        printArray(gm.maze);
+        char[][] maze = gm.createMaze(30,30);
+        printArray(maze);
     }
 
     public static void printArray(char[][] array) {

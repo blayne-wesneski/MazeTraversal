@@ -1,9 +1,15 @@
+
 public class generateMaze {
 
-    // @TODO: Allow user to specify the size of the maze.
-    char[][] maze = new char[10][10];
-
-    public char[][] createMaze() {
+    /**
+     * Create a maze given length and width. 
+     * @param length Integer value for the length of the maze to generate
+     * @param width Integer value for the width of the maze to generate
+     * @return char[][] A 2D array representing the maze
+     */
+    public char[][] createMaze(int length, int width) {
+        
+        char[][] maze = new char[length][width];
 
         /*
          * Visualising this hurts my brain.
