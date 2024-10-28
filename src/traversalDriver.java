@@ -13,11 +13,11 @@ public class traversalDriver {
         }
         
         printArray(maze);
-        printArray(maze1);
-        printArray(maze2);
 
         // for passing to the traversal class later
+        @SuppressWarnings("unused")
         int startX = gm.getStartPointX();
+        @SuppressWarnings("unused")
         int startY = gm.getStartPointY();
     }
 
