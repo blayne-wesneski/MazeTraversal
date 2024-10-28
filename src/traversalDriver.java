@@ -1,8 +1,24 @@
 public class traversalDriver {
     public static void main(String[] args) {
-        generateMaze gm = new generateMaze();
-        char[][] maze = gm.createMaze(30,30);
+        maze gm = new maze();
+        char[][] maze = gm.createMaze(10, 10);
+
+        //copying of maze for all algorithms
+        char[][] maze1 = new char[maze.length][];
+        char[][] maze2 = new char[maze.length][];
+
+        for (int i = 0; i < maze.length; i++) {
+            maze1[i] = copyArray(maze[i]);
+            maze2[i] = copyArray(maze[i]);
+        }
+        
         printArray(maze);
+        printArray(maze1);
+        printArray(maze2);
+
+        // for passing to the traversal class later
+        int startX = gm.getStartPointX();
+        int startY = gm.getStartPointY();
     }
 
     public static void printArray(char[][] array) {
@@ -12,5 +28,16 @@ public class traversalDriver {
             }
             System.out.println();
         }
+    }
+
+    public static char[] copyArray(char[] array) {
+
+        char[] new_array = new char[array.length];
+
+        for (int i = 0; i < array.length; i++) {
+            new_array[i] = array[i];
+        }
+
+        return new_array;
     }
 }
