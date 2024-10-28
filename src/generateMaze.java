@@ -1,14 +1,16 @@
+import java.util.Random;
 
 public class generateMaze {
 
     /**
-     * Create a maze given length and width. 
+     * Create a maze given length and width.
+     * 
      * @param length Integer value for the length of the maze to generate
-     * @param width Integer value for the width of the maze to generate
+     * @param width  Integer value for the width of the maze to generate
      * @return char[][] A 2D array representing the maze
      */
     public char[][] createMaze(int length, int width) {
-        
+
         char[][] maze = new char[length][width];
 
         /*
@@ -19,6 +21,8 @@ public class generateMaze {
          * 
          * Wall = #
          * Obstacle = X
+         * Start = S
+         * End = E
          */
 
         // Create walls for the maze
@@ -29,20 +33,31 @@ public class generateMaze {
             maze[maze.length - 1][i] = '#';
         }
 
-        // Generate the obstacles in the maze randomly
+        // Fill maze with empty space
         for (int i = 1; i < maze.length - 1; i++) {
             for (int j = 1; j < maze[i].length - 1; j++) {
-                if (Math.random() < 0.3) {
-                    maze[i][j] = 'X';
-                }
+                    maze[i][j] = ' ';
             }
         }
 
-        // Fill remaining cells with empty space
+        // Set the start and end points of the maze
+
+        Random rand = new Random();
+
+        int randomStartX = rand.nextInt(maze.length - 2) + 1;
+        int randomStartY = rand.nextInt(maze.length - 2) + 1;
+
+        int randomEndX = rand.nextInt(maze.length - 2) + 1;
+        int randomEndY = rand.nextInt(maze.length - 2) + 1;
+
+        maze[randomStartX][randomStartY] = 'S';
+        maze[randomEndX][randomEndY] = 'E';
+
+        // Generate the obstacles in the maze randomly
         for (int i = 1; i < maze.length - 1; i++) {
             for (int j = 1; j < maze[i].length - 1; j++) {
-                if (maze[i][j] != 'X') {
-                    maze[i][j] = ' ';
+                if (Math.random() < 0.3 && maze[i][j] != 'S' && maze[i][j] != 'E') {
+                    maze[i][j] = 'X';
                 }
             }
         }
