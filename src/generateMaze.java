@@ -1,6 +1,7 @@
 import java.util.Random;
-
 public class generateMaze {
+
+    private int randomStartX, randomStartY;
 
     /**
      * Create a maze given length and width.
@@ -36,7 +37,7 @@ public class generateMaze {
         // Fill maze with empty space
         for (int i = 1; i < maze.length - 1; i++) {
             for (int j = 1; j < maze[i].length - 1; j++) {
-                    maze[i][j] = ' ';
+                maze[i][j] = ' ';
             }
         }
 
@@ -44,24 +45,33 @@ public class generateMaze {
 
         Random rand = new Random();
 
-        int randomStartX = rand.nextInt(maze.length - 2) + 1;
-        int randomStartY = rand.nextInt(maze.length - 2) + 1;
+
+        randomStartX = rand.nextInt(maze.length - 2) + 1;
+        randomStartY = rand.nextInt(maze[0].length - 2) + 1;
 
         int randomEndX = rand.nextInt(maze.length - 2) + 1;
-        int randomEndY = rand.nextInt(maze.length - 2) + 1;
+        int randomEndY = rand.nextInt(maze[0].length - 2) + 1;
 
-        maze[randomStartX][randomStartY] = 'S';
-        maze[randomEndX][randomEndY] = 'E';
+        maze[randomStartY][randomStartX] = 'S';
+        maze[randomEndY][randomEndX] = 'E';
 
         // Generate the obstacles in the maze randomly
         for (int i = 1; i < maze.length - 1; i++) {
             for (int j = 1; j < maze[i].length - 1; j++) {
-                if (Math.random() < 0.3 && maze[i][j] != 'S' && maze[i][j] != 'E') {
+                if (Math.random() < 0.3 && maze[i][j] == ' ') {
                     maze[i][j] = 'X';
                 }
             }
         }
 
         return maze;
+    }
+
+    public int getStartPointX() {
+        return randomStartX;
+    }
+
+    public int getStartPointY() {
+        return randomStartY;
     }
 }
