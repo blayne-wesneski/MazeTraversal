@@ -1,4 +1,4 @@
-public class traversalDriver {
+public class main {
     public static void main(String[] args) {
         maze gm = new maze();
         char[][] maze = gm.createMaze(10, 10);
