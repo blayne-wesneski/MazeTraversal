@@ -1,6 +1,6 @@
-public class main {
+public class Main {
     public static void main(String[] args) {
-        maze gm = new maze();
+        Maze gm = new Maze();
         char[][] maze = gm.createMaze(10, 10);
 
         //copying of maze for all algorithms

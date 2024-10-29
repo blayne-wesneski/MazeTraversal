@@ -1,5 +1,5 @@
 import java.util.Random;
-public class maze {
+public class Maze {
 
     private int randomStartX, randomStartY;
 

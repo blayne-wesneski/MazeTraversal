@@ -1,4 +1,4 @@
-public class traverse {
+public class Traverse {
 
     public void breadthFirst() {
 
