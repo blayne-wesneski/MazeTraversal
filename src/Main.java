@@ -13,12 +13,6 @@ public class Main {
         }
         
         printArray(maze);
-
-        // for passing to the traversal class later
-        @SuppressWarnings("unused")
-        int startX = gm.getStartPointX();
-        @SuppressWarnings("unused")
-        int startY = gm.getStartPointY();
     }
 
     public static void printArray(char[][] array) {

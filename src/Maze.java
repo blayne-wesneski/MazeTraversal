@@ -1,7 +1,7 @@
 import java.util.Random;
 public class Maze {
 
-    private int randomStartX, randomStartY;
+    private int startRow, startCol;
 
     /**
      * Create a maze given length and width.
@@ -46,14 +46,14 @@ public class Maze {
         Random rand = new Random();
 
 
-        randomStartX = rand.nextInt(maze.length - 2) + 1;
-        randomStartY = rand.nextInt(maze[0].length - 2) + 1;
+        startRow = rand.nextInt(maze.length - 2) + 1;
+        startCol = rand.nextInt(maze[0].length - 2) + 1;
 
-        int randomEndX = rand.nextInt(maze.length - 2) + 1;
-        int randomEndY = rand.nextInt(maze[0].length - 2) + 1;
+        int endRow = rand.nextInt(maze.length - 2) + 1;
+        int endCol = rand.nextInt(maze[0].length - 2) + 1;
 
-        maze[randomStartY][randomStartX] = 'S';
-        maze[randomEndY][randomEndX] = 'E';
+        maze[startRow][startCol] = 'S';
+        maze[endRow][endCol] = 'E';
 
         // Generate the obstacles in the maze randomly
         for (int i = 1; i < maze.length - 1; i++) {
@@ -67,11 +67,11 @@ public class Maze {
         return maze;
     }
 
-    public int getStartPointX() {
-        return randomStartX;
+    public int getStartRow() {
+        return startRow;
     }
 
-    public int getStartPointY() {
-        return randomStartY;
+    public int getStartCol() {
+        return startCol;
     }
 }
