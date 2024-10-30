@@ -1,4 +1,5 @@
 import java.util.Random;
+
 public class Maze {
 
     private int startRow, startCol;
@@ -15,11 +16,6 @@ public class Maze {
         char[][] maze = new char[length][width];
 
         /*
-         * Visualising this hurts my brain.
-         * I have it working, and fingers crossed there isn't a bug.
-         *
-         * 
-         * 
          * Wall = #
          * Obstacle = X
          * Start = S
@@ -44,7 +40,6 @@ public class Maze {
         // Set the start and end points of the maze
 
         Random rand = new Random();
-
 
         startRow = rand.nextInt(maze.length - 2) + 1;
         startCol = rand.nextInt(maze[0].length - 2) + 1;

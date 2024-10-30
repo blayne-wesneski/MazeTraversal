@@ -3,7 +3,7 @@ public class Main {
         Maze gm = new Maze();
         Traverse traverse = new Traverse();
         
-        char[][] maze = gm.createMaze(30, 30);
+        char[][] maze = gm.createMaze(10, 10);
         int startRow = gm.getStartRow();
         int startCol = gm.getStartCol();
 
