@@ -1,26 +1,31 @@
+import java.lang.reflect.Array;
+
 public class Main {
     public static void main(String[] args) {
         Maze gm = new Maze();
         Traverse traverse = new Traverse();
         
-        char[][] maze = gm.createMaze(10, 10);
+        Point[][] maze = gm.createMaze(10, 10);
         int startRow = gm.getStartRow();
         int startCol = gm.getStartCol();
 
+        ArrayOperations.printArrayPoint(maze);
+
         //copying of maze for all algorithms
-        char[][] maze1 = new char[maze.length][];
-        char[][] maze2 = new char[maze.length][];
+        Point[][] maze1 = new Point[maze.length][];
+        Point[][] maze2 = new Point[maze.length][];
 
         for (int i = 0; i < maze.length; i++) {
             maze1[i] = ArrayOperations.copyArray(maze[i]);
             maze2[i] = ArrayOperations.copyArray(maze[i]);
         }
         
-        ArrayOperations.printArrayChar(maze);
+        ArrayOperations.printArrayPoint(maze);
 
         traverse.breadthFirst(maze, startRow, startCol);
 
         System.out.println("complete");
+
     }
 
 }

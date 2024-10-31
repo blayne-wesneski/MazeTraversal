@@ -22,14 +22,7 @@ public class Traverse {
      * @param startCol The starting column of the maze.
      */
 
-    // I made this way too convoluted, and I had trouble keeping track of it all. So
-    // I am completely rewriting it. I think I just didn't fully understand what I
-    // was doing and I didn't plan it out well enough in the beginning.
-
-    public void breadthFirst(char[][] maze, int startRow, int startCol) {
-        // Scanner for testing
-        Scanner scanner = new Scanner(System.in);
-
+    public void breadthFirst(Point[][] maze, int startRow, int startCol) {
         // Directions
         int[][] directions = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
@@ -37,36 +30,37 @@ public class Traverse {
         Queue<Point> queue = new LinkedList<>();
 
         // Add the starting point to the queue
-        queue.add(new Point(startRow, startCol, true, 0));
+        queue.add(new Point(startRow, startCol, true, 0, maze[startRow][startCol].type));
 
+        Scanner scanner = new Scanner(System.in);
         while (!queue.isEmpty()) {
 
             Point curr = queue.poll();
-            Point next = new Point(curr.row, curr.col, false, curr.distance + 1);
 
             for (int i = 0; i < directions.length; i++) {
-                if (next.row >= 0 && next.row < maze.length && next.col >= 0 && next.col < maze[0].length) {
-                    if (next.visited == false && maze[next.row][next.col] == 'E') {
-                        System.out.println("End point found at row: " + next.row + " col: " + next.col);
+
+                int nextRow = curr.row + directions[i][0];
+                int nextCol = curr.col + directions[i][1];
+
+                if (nextRow >= 0 && nextRow < maze.length && nextCol >= 0 && nextCol < maze[0].length) {
+                    Point next = new Point(nextRow, nextCol, false, curr.distance + 1,
+                            maze[curr.row + directions[i][0]][curr.col + directions[i][1]].type);
+                    if (next.isExit()) {
+                        System.out.println("Exit is at row: " + next.row + " col: " + next.col);
                         scanner.close();
                         return;
                     }
-                    if (next.visited == false && maze[next.row][next.col] != 'X') {
-                        curr = next;
-                        curr.visited = true;
-                        queue.add(curr);
-                        next = new Point(curr.row + directions[i][0], curr.col + directions[i][1], false,
-                                curr.distance + 1);
-                        // This will print a character to the maze array to show the search
-                        maze[next.row][next.col] = '▦';
-                        ArrayOperations.printArrayChar(maze);
+                    if (next.isWalkable() && !next.visited) {
+                        System.out.println("Visiting row: " + next.row + " col: " + next.col);
+                        queue.add(next);
+                        maze[next.row][next.col].type = '▦';
+                        ArrayOperations.printArrayPoint(maze);
                         scanner.nextLine();
                     }
                 }
             }
         }
         scanner.close();
-
     }
 
     public void depthFirst() {
