@@ -9,6 +9,16 @@ public class ArrayOperations {
         }
     }
 
+    // Code for debugging, will either be removed or commented out later
+    public static void printArrayDist(Point[][] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                System.out.print(array[i][j].distance + " ");
+            }
+            System.out.println();
+        }
+    }
+
     public static void printArrayInt(int[][] array) {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {

@@ -24,16 +24,16 @@ public class Maze {
 
         // Create walls for the maze
         for (int i = 0; i < maze.length; i++){
-            maze[i][0] = new Point(i, 0, false, 999, '#');
-            maze[i][maze.length - 1] = new Point(i, maze.length - 1, false, 999, '#');
-            maze[0][i] = new Point(0, i, false, 999, '#');
-            maze[maze.length - 1][i] = new Point(maze.length - 1, i, false, 999, '#');
+            maze[i][0] = new Point(i, 0, false, 0, '#', null);
+            maze[i][maze.length - 1] = new Point(i, maze.length - 1, false, 0, '#', null);
+            maze[0][i] = new Point(0, i, false, 0, '#', null);
+            maze[maze.length - 1][i] = new Point(maze.length - 1, i, false, 0, '#', null);
         }
 
         // Fill maze with empty space
         for (int i = 1; i < maze.length - 1; i++){
             for (int j = 1; j < maze.length - 1; j++) {
-                maze[i][j] = new Point(i, j, false, 999, ' ');
+                maze[i][j] = new Point(i, j, false, 0, ' ', null);
             }
         }
 
@@ -47,14 +47,14 @@ public class Maze {
         int endRow = rand.nextInt(maze.length - 2) + 1;
         int endCol = rand.nextInt(maze[0].length - 2) + 1;
 
-        maze[startRow][startCol] = new Point(startRow, startCol, false, 999, 'S');
-        maze[endRow][endCol] = new Point(endRow, endCol, false, 999, 'E');
+        maze[startRow][startCol] = new Point(startRow, startCol, false, 0, 'S' , null);
+        maze[endRow][endCol] = new Point(endRow, endCol, false, 0, 'E',null);
 
         // Generate the obstacles in the maze randomly
         for (int i = 1; i < maze.length - 1; i++) {
             for (int j = 1; j < maze[i].length; j++) {
                 if(Math.random() < 0.3 && maze[i][j].type == ' '){
-                    maze[i][j] = new Point(i, j, false, 999, 'X');
+                    maze[i][j] = new Point(i, j, false, 0, 'X', null);
                 }
             }
         }
