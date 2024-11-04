@@ -10,22 +10,32 @@ public class Main {
 
         int length, width;
 
+        // Get user input for maze size
+        // If user input is invalid, use default size of 10
         System.out.print("Please enter the length of the maze: ");
         if (!scanner.hasNextInt()) {
-            System.out.println("Invalid input");
-            scanner.close();
-            return;
+            System.out.println("Invalid input, using defualt of 10.");
+            length = 10;
         } else {
             length = scanner.nextInt();
         }
 
+        if (length < 5) {
+            System.out.println("Maze length must be 5 or greater, using default of 10.");
+            length = 10;
+        }
+
         System.out.print("Please enter the width of the maze: ");
         if (!scanner.hasNextInt()) {
-            System.out.println("Invalid input");
-            scanner.close();
-            return;
-        } else {
+            System.out.println("Invalid input, using default of 10.");
+            width = 10;
+        }else {
             width = scanner.nextInt();
+        }
+
+        if (width < 5) {
+            System.out.println("Maze length must be 5 or greater, using default of 10.");
+            width = 10;
         }
 
         Point[][] maze = gm.createMaze(length, width);
@@ -49,16 +59,16 @@ public class Main {
 
         switch (algo) {
             case 1:
-                traverse.depthFirst(maze, startRow, startCol);
+                traverse.depthFirst(maze, startRow, startCol, scanner);
                 break;
 
             case 2:
-                traverse.breadthFirst(maze1, startRow, startCol);
+                traverse.breadthFirst(maze1, startRow, startCol, scanner);
                 break;
 
             case 3:
-                traverse.depthFirst(maze, startRow, startCol);
-                traverse.breadthFirst(maze1, startRow, startCol);
+                traverse.depthFirst(maze, startRow, startCol, scanner);
+                traverse.breadthFirst(maze1, startRow, startCol, scanner);
                 break;
 
             default:

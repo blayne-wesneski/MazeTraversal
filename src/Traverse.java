@@ -26,7 +26,7 @@ public class Traverse {
      * @param startCol The starting column of the maze.
      */
 
-    public void breadthFirst(Point[][] maze, int startRow, int startCol) {
+    public void breadthFirst(Point[][] maze, int startRow, int startCol, Scanner scanner) {
         // Directions
         int[][] directions = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
@@ -35,9 +35,6 @@ public class Traverse {
 
         // Add the starting point to the queue
         queue.add(maze[startRow][startCol]);
-
-        // Scanner for testing
-        Scanner scanner = new Scanner(System.in);
 
         // While the queue isn't empty, keep searching
         // This does currently just end if it can't find the exit, probably should
@@ -61,10 +58,7 @@ public class Traverse {
                     if (next.isEnd()) {
                         maze[nextRow][nextCol].distance = curr.distance + 1;
                         maze[nextRow][nextCol].parent = curr;
-                        printFinalPath(next, maze);
-                        System.out.println("End is at row: " + next.row + " col: " + next.col);
-                        System.out.println("Distance from start: " + maze[nextRow][nextCol].distance);
-                        scanner.close();
+                        printFinalPath(next, maze, scanner, maze[nextRow][nextCol].distance, nextRow, nextCol);
                         return;
                     }
 
@@ -78,13 +72,15 @@ public class Traverse {
                         maze[next.row][next.col].parent = curr;
                         queue.add(next);
                         ArrayOperations.printArrayPoint(maze);
-                        scanner.nextLine();
+                        try {
+                            Thread.sleep(5);
+                        } catch (InterruptedException e) {
+                        }
                     }
                 }
             }
+            System.out.println("No path to the end found.");
         }
-        System.out.println("No path to the end found.");
-        scanner.close();
     }
 
     /*
@@ -100,7 +96,7 @@ public class Traverse {
      * @param startRow The starting row of the maze.
      * @param startCol The starting column of the maze.
      */
-    public void depthFirst(Point[][] maze, int startRow, int startCol) {
+    public void depthFirst(Point[][] maze, int startRow, int startCol, Scanner scanner) {
 
         // Create a stack
         Stack<Point> stack = new Stack<>();
@@ -110,9 +106,6 @@ public class Traverse {
 
         // Push the starting point to the stack
         stack.push(maze[startRow][startCol]);
-
-        // Scanner for testing
-        Scanner scanner = new Scanner(System.in);
 
         // While the stack isn't empty, keep searching
         while (!stack.isEmpty()) {
@@ -137,10 +130,7 @@ public class Traverse {
                         if (next.isEnd()) {
                             maze[nextRow][nextCol].distance = curr.distance + 1;
                             maze[nextRow][nextCol].parent = curr;
-                            printFinalPath(next, maze);
-                            System.out.println("End is at row: " + next.row + " col: " + next.col);
-                            System.out.println("Distance from start: " + maze[nextRow][nextCol].distance);
-                            scanner.close();
+                            printFinalPath(next, maze, scanner, maze[nextRow][nextCol].distance, nextRow, nextCol);
                             return;
                         }
                         // If the point is walkable, update it and push it to the stack. If not, ignore
@@ -150,15 +140,17 @@ public class Traverse {
                             maze[next.row][next.col].distance = curr.distance + 1;
                             stack.push(next);
                             ArrayOperations.printArrayPoint(maze);
-                            scanner.nextLine();
+                            try {
+                                Thread.sleep(5);
+                            } catch (InterruptedException e) {
+                            }
                         }
                     }
                 }
-            }
 
+            }
+            System.out.println("No path to the end found.");
         }
-        System.out.println("No path to the end found.");
-        scanner.close();
     }
 
     /**
@@ -167,7 +159,7 @@ public class Traverse {
      * @param point end point found with search algorithm
      * @param maze  the maze array
      */
-    private void printFinalPath(Point point, Point[][] maze) {
+    private void printFinalPath(Point point, Point[][] maze, Scanner scanner, int distance, int endRow, int endCol) {
 
         // Create an arraylist to keep track of the previous points
         List<Point> path = new ArrayList<>();
@@ -199,6 +191,13 @@ public class Traverse {
 
         }
         ArrayOperations.printArrayPoint(maze);
+        System.out.println("End found. Row: " + endRow + " Col: " + endCol + " Distance from start: "
+                + distance);
+        System.out.println("Press any key to continue...");
+        if (scanner.hasNextLine()) {
+            scanner.nextLine();
+        }
+        scanner.nextLine();
     }
 
 }
