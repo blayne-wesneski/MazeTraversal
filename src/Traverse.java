@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Traverse {
 
@@ -37,9 +38,10 @@ public class Traverse {
 
         // Scanner for testing
         Scanner scanner = new Scanner(System.in);
-        
+
         // While the queue isn't empty, keep searching
-        // This does currently just end if it can't find the exit, I will write an else statement for that later.
+        // This does currently just end if it can't find the exit, probably should
+        // implement a message for that.
         while (!queue.isEmpty()) {
             Point curr = queue.poll();
 
@@ -49,11 +51,12 @@ public class Traverse {
                 int nextRow = curr.row + directions[i][0];
                 int nextCol = curr.col + directions[i][1];
 
+                maze[curr.row][curr.col].visited = true;
 
                 if (nextRow >= 0 && nextRow < maze.length && nextCol >= 0 && nextCol < maze[0].length) {
                     // Queue up next point
                     Point next = maze[nextRow][nextCol];
-                    
+
                     // If the point is the end, we are done, print it out.
                     if (next.isEnd()) {
                         maze[nextRow][nextCol].distance = curr.distance + 1;
@@ -65,7 +68,8 @@ public class Traverse {
                         return;
                     }
 
-                    // if it isn't the end, check for walkability, if it isn't walkable, then ignore it.
+                    // if it isn't the end, check for walkability, if it isn't walkable, then ignore
+                    // it.
                     if (next.isWalkable()) {
                         System.out.println("Visiting row: " + next.row + " col: " + next.col);
                         maze[next.row][next.col].type = '▦';
@@ -83,28 +87,90 @@ public class Traverse {
         scanner.close();
     }
 
-    
+    /**
+     * Method to traverse a maze using a depth first search.
+     * 
+     * @param maze     A 2D array representing the maze.
+     * @param startRow The starting row of the maze.
+     * @param startCol The starting column of the maze.
+     */
+    public void depthFirst(Point[][] maze, int startRow, int startCol) {
 
-    public void depthFirst() {
+        // Create a stack
+        Stack<Point> stack = new Stack<>();
 
+        // Directions
+        int[][] directions = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+
+        // Push the starting point to the stack
+        stack.push(maze[startRow][startCol]);
+
+        // Scanner for testing
+        Scanner scanner = new Scanner(System.in);
+
+        // While the stack isn't empty, keep searching
+        while (!stack.isEmpty()) {
+            Point curr = stack.pop();
+
+            if (curr.isWalkable()) {
+                maze[curr.row][curr.col].visited = true;
+                if (curr.type != 'S' && curr.type != 'E') {
+                    maze[curr.row][curr.col].type = '▦';
+                }
+
+                // Check all 4 directions for next possible point
+                for (int i = 0; i < directions.length; i++) {
+                    int nextRow = curr.row + directions[i][0];
+                    int nextCol = curr.col + directions[i][1];
+
+                    // Check to make sure the point is in bounds
+                    if (nextRow >= 0 && nextRow < maze.length && nextCol >= 0 && nextCol < maze[0].length) {
+                        Point next = maze[nextRow][nextCol];
+
+                        // If the point is the end, we are done, print it out.
+                        if (next.isEnd()) {
+                            maze[nextRow][nextCol].distance = curr.distance + 1;
+                            maze[nextRow][nextCol].parent = curr;
+                            printFinalPath(next, maze);
+                            System.out.println("End is at row: " + next.row + " col: " + next.col);
+                            System.out.println("Distance from start: " + maze[nextRow][nextCol].distance);
+                            scanner.close();
+                            return;
+                        }
+                        // If the point is walkable, update it and push it to the stack. If not, ignore
+                        // it.
+                        if (next.isWalkable()) {
+                            maze[next.row][next.col].parent = curr;
+                            maze[next.row][next.col].distance = curr.distance + 1;
+                            stack.push(next);
+                            ArrayOperations.printArrayPoint(maze);
+                            scanner.nextLine();
+                        }
+                    }
+                }
+            }
+
+        }
+        scanner.close();
     }
 
     public void floodFill() {
-
+        return;
     }
 
     /**
      * Backtracks through previous points to print final shortest path.
+     * 
      * @param point end point found with search algorithm
-     * @param maze the maze array
+     * @param maze  the maze array
      */
-    private void printFinalPath(Point point, Point[][] maze){
-        
+    private void printFinalPath(Point point, Point[][] maze) {
+
         // Create an arraylist to keep track of the previous points
         List<Point> path = new ArrayList<>();
-        
+
         // While the point has a parent, keep going back
-        while(point.parent != null){
+        while (point.parent != null) {
             path.add(point);
             point = point.parent;
         }
@@ -115,19 +181,19 @@ public class Traverse {
         for (Point point2 : path) {
 
             // Don't overwrite the 'E'
-            if(maze[point2.row][point2.col].type != 'E'){
+            if (maze[point2.row][point2.col].type != 'E') {
                 maze[point2.row][point2.col].type = '▢';
             }
 
             // Cleanup code, just removes the search history ;-)
-            for (int i = 1; i < maze.length - 1; i++){
+            for (int i = 1; i < maze.length - 1; i++) {
                 for (int j = 1; j < maze.length - 1; j++) {
-                    if(maze[i][j].type == '▦'){
+                    if (maze[i][j].type == '▦') {
                         maze[i][j].type = ' ';
                     }
                 }
             }
-            
+
         }
         ArrayOperations.printArrayPoint(maze);
     }

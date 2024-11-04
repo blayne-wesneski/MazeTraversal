@@ -17,7 +17,7 @@ public class Point {
     }
 
     public boolean isWalkable() {
-        if(this.type == 'X' || this.type == '#' || this.type == 'S' || this.visited){
+        if(this.type == 'X' || this.type == '#' || this.visited){
             return false;
         }
         else{
