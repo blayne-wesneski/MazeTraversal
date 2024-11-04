@@ -8,10 +8,25 @@ public class Main {
         Maze gm = new Maze();
         Traverse traverse = new Traverse();
         
+        int length, width;
+
         System.out.print("Please enter the length of the maze: ");
-        int length = scanner.nextInt();
+        if (!scanner.hasNextInt()) {
+            System.out.println("Invalid input");
+            scanner.close();
+            return;
+        }else{
+            length = scanner.nextInt();
+        }
+
         System.out.print("Please enter the width of the maze: ");
-        int width = scanner.nextInt();
+        if (!scanner.hasNextInt()) {
+            System.out.println("Invalid input");
+            scanner.close();
+            return;
+        }else{
+            width = scanner.nextInt();
+        }
 
         Point[][] maze = gm.createMaze(length, width);
         int startRow = gm.getStartRow();
