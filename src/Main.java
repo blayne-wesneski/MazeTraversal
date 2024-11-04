@@ -7,7 +7,7 @@ public class Main {
 
         Maze gm = new Maze();
         Traverse traverse = new Traverse();
-        
+
         int length, width;
 
         System.out.print("Please enter the length of the maze: ");
@@ -15,7 +15,7 @@ public class Main {
             System.out.println("Invalid input");
             scanner.close();
             return;
-        }else{
+        } else {
             length = scanner.nextInt();
         }
 
@@ -24,7 +24,7 @@ public class Main {
             System.out.println("Invalid input");
             scanner.close();
             return;
-        }else{
+        } else {
             width = scanner.nextInt();
         }
 
@@ -35,18 +35,15 @@ public class Main {
         System.out.println("Maze generated: ");
         ArrayOperations.printArrayPoint(maze);
 
-        //copying of maze for all algorithms
+        // copying of maze for both algorithms
         Point[][] maze1 = new Point[maze.length][maze[0].length];
-        Point[][] maze2 = new Point[maze.length][maze[0].length];
 
         maze1 = ArrayOperations.copyArray(maze);
-        maze2 = ArrayOperations.copyArray(maze);
 
         System.out.println("Select algorithm to run:");
         System.out.println("1. Depth First Search");
         System.out.println("2. Breadth First Search");
-        System.out.println("3. Flood Fill");
-        System.out.println("4. All");
+        System.out.println("3. Both");
 
         int algo = scanner.nextInt();
 
@@ -54,21 +51,16 @@ public class Main {
             case 1:
                 traverse.depthFirst(maze, startRow, startCol);
                 break;
-        
+
             case 2:
                 traverse.breadthFirst(maze1, startRow, startCol);
                 break;
-            
-            case 3:
-                traverse.floodFill();
-                break;
 
-            case 4:
+            case 3:
                 traverse.depthFirst(maze, startRow, startCol);
                 traverse.breadthFirst(maze1, startRow, startCol);
-                traverse.floodFill();
                 break;
-            
+
             default:
                 System.out.println("Invalid input");
                 break;

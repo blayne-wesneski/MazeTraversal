@@ -161,10 +161,6 @@ public class Traverse {
         scanner.close();
     }
 
-    public void floodFill() {
-        return;
-    }
-
     /**
      * Backtracks through previous points to print final shortest path.
      * 
