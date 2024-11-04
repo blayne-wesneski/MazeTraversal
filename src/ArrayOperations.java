@@ -28,12 +28,14 @@ public class ArrayOperations {
         }
     }
 
-    public static Point[] copyArray(Point[] array) {
+    public static Point[][] copyArray(Point[][] array) {
 
-        Point[] new_array = new Point[array.length];
+        Point[][] new_array = new Point[array.length][array[0].length];
 
         for (int i = 0; i < array.length; i++) {
-            new_array[i] = array[i];
+            for (int j = 0; j < array[i].length; j++) {
+                new_array[i][j] = new Point(array[i][j].row, array[i][j].col, array[i][j].visited, array[i][j].distance, array[i][j].type, array[i][j].parent);
+            }
         }
 
         return new_array;

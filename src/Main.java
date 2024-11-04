@@ -21,14 +21,12 @@ public class Main {
         ArrayOperations.printArrayPoint(maze);
 
         //copying of maze for all algorithms
-        Point[][] maze1 = new Point[maze.length][];
-        Point[][] maze2 = new Point[maze.length][];
+        Point[][] maze1 = new Point[maze.length][maze[0].length];
+        Point[][] maze2 = new Point[maze.length][maze[0].length];
 
-        for (int i = 0; i < maze.length; i++) {
-            maze1[i] = ArrayOperations.copyArray(maze[i]);
-            maze2[i] = ArrayOperations.copyArray(maze[i]);
-        }
-        
+        maze1 = ArrayOperations.copyArray(maze);
+        maze2 = ArrayOperations.copyArray(maze);
+
         System.out.println("Select algorithm to run:");
         System.out.println("1. Depth First Search");
         System.out.println("2. Breadth First Search");
@@ -39,11 +37,11 @@ public class Main {
 
         switch (algo) {
             case 1:
-                traverse.depthFirst(maze1, startRow, startCol);
+                traverse.depthFirst(maze, startRow, startCol);
                 break;
         
             case 2:
-                traverse.breadthFirst(maze2, startRow, startCol);
+                traverse.breadthFirst(maze1, startRow, startCol);
                 break;
             
             case 3:
@@ -51,8 +49,8 @@ public class Main {
                 break;
 
             case 4:
-                traverse.depthFirst(maze1, startRow, startCol);
-                traverse.breadthFirst(maze2, startRow, startCol);
+                traverse.depthFirst(maze, startRow, startCol);
+                traverse.breadthFirst(maze1, startRow, startCol);
                 traverse.floodFill();
                 break;
             
@@ -60,8 +58,6 @@ public class Main {
                 System.out.println("Invalid input");
                 break;
         }
-
-        System.out.println("complete");
 
         scanner.close();
     }
