@@ -78,14 +78,20 @@ public class Traverse {
                         maze[next.row][next.col].parent = curr;
                         queue.add(next);
                         ArrayOperations.printArrayPoint(maze);
-                        // ArrayOperations.printArrayDist(maze);
-                        // scanner.nextLine();
+                        scanner.nextLine();
                     }
                 }
             }
         }
+        System.out.println("No path to the end found.");
         scanner.close();
     }
+
+    /*
+     * I used this pseudocode from Danny Heap at the University of Toronto as a
+     * guide while writing my implementation of DFS.
+     * https://www.cs.toronto.edu/~heap/270F02/node36.html
+     */
 
     /**
      * Method to traverse a maze using a depth first search.
@@ -151,6 +157,7 @@ public class Traverse {
             }
 
         }
+        System.out.println("No path to the end found.");
         scanner.close();
     }
 
