@@ -182,7 +182,7 @@ public class Traverse {
 
             // Cleanup code, just removes the search history ;-)
             for (int i = 1; i < maze.length - 1; i++) {
-                for (int j = 1; j < maze.length - 1; j++) {
+                for (int j = 1; j < maze[0].length - 1; j++) {
                     if (maze[i][j].type == '▦') {
                         maze[i][j].type = ' ';
                     }
